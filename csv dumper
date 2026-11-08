@@ -1,0 +1,10 @@
+# Adjust according to the drive u are checking
+$DriveLetter = "C"
+$OutputFile = "${DriveLetter}:\USN_Journal_Export.txt"
+
+Write-Host "Querying USN Journal for drive ${DriveLetter}:..." -ForegroundColor Cyan
+
+# Exporting raw journal output directly to the root of the target drive
+fsutil usn readjournal $DriveLetter query > "${DriveLetter}:\USN_Raw_Output.csv"
+
+Write-Host "USN Journal data successfully exported to root of ${DriveLetter}:\" -ForegroundColor Green
