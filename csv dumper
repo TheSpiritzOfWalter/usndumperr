@@ -1,10 +1,12 @@
 # Run this script in PowerShell as Administrator
 $DriveLetter = "C"
-$OutputFile = "${DriveLetter}:\USN_Journal_Export.csv"
+$OutputFile = "${DriveLetter}:\Filtered_USN_Journal.csv"
 
-Write-Host "Querying USN Journal for drive ${DriveLetter}:..." -ForegroundColor Cyan
+Write-Host "Querying and filtering USN Journal for .exe, .dll, and .lua files..." -ForegroundColor Cyan
 
-# Exporting USN records in CSV format directly to the root of the target drive
-fsutil usn readJournal ${DriveLetter}: csv > "$OutputFile"
+# Query the USN journal, skip header lines, filter by extension, and output to CSV
+fsutil usn readJournal ${DriveLetter}: csv | Where-Object { 
+    $_ -match '\.(exe|dll|lua)"' 
+} | Out-File -FilePath "$OutputFile" -Encoding utf8
 
-Write-Host "USN Journal data successfully exported to $OutputFile" -ForegroundColor Green
+Write-Host "Filtered USN Journal successfully saved to $OutputFile" -ForegroundColor Green
