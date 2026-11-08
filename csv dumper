@@ -1,6 +1,6 @@
 # Adjust according to the drive u are checking
 $DriveLetter = "C"
-$OutputFile = "${DriveLetter}:\USN_Journal_Export.txt"
+$OutputFile = "${DriveLetter}:\USN_Journal_Export.csv"
 
 Write-Host "Querying USN Journal for drive ${DriveLetter}:..." -ForegroundColor Cyan
 
